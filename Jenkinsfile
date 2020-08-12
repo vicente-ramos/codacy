@@ -1,6 +1,6 @@
 pipeline {
-    // agent { label 'test-2' }
-    agent any
+    agent { label 'test-2' }
+    // agent any
 	libraries {
   		lib('jenkins-shared-lib')
 	}
