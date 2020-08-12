@@ -43,6 +43,8 @@ pipeline {
         }    
         stage("Upload Code coverage to codacy.") {
             steps {
+                // curl https://coverage.codacy.com/get.sh | bash  -s report -t 509740f1261b4a02b24a6f342bbad154 -u vicente-ramos -p codacy -l python -r coverage.xml
+                codacy_sh('codacy', 'vicente-ramos', 'python', '509740f1261b4a02b24a6f342bbad154', 'coverage.xml')
                 codacy_coverage("codacy", "vicente-ramos", "ruby", "codacy.json", "509740f1261b4a02b24a6f342bbad154")
             }
         }
