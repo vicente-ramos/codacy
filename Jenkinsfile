@@ -43,7 +43,6 @@ pipeline {
         }    
         stage("Upload Code coverage to codacy.") {
             steps {
-                codacy_sh('codacy', 'vicente-ramos', 'python', '509740f1261b4a02b24a6f342bbad154', 'coverage.xml')
                 codacy_coverage("codacy", "vicente-ramos", "ruby", "codacy.json", "509740f1261b4a02b24a6f342bbad154")
             }
         }
@@ -70,7 +69,14 @@ pipeline {
                     }
                 }
             }
-        }                
+        }
+        stage('Codacy Script') {
+            steps {
+                withCredentials([string(credentialsId: 'codacy_project_token', variable: 'TOKEN')]) {
+                    codacy_sh('codacy', 'vicente-ramos', 'python', '$TOKEN', 'coverage.xml')
+                }
+            }
+        }                   
     }
     post {
         always{
